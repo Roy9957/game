@@ -1,8 +1,8 @@
 {
-  "name": "vercel-python-server",
+  "name": "game",
   "version": "1.0.0",
   "scripts": {
-    "start": "python api/index.py"
+    "start": "python index.py"
   },
   "dependencies": {
     "flask": "^2.3.2"
