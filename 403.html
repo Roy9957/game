@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 Forbidden | Access Denied</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: #0a0a12;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Cyberpunk grid background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(10, 10, 20, 0.9), rgba(10, 10, 20, 0.9)),
+                linear-gradient(90deg, #0a0a12 21px, transparent 1%) center,
+                linear-gradient(#0a0a12 21px, transparent 1%) center,
+                #4a2c82;
+            background-size: 22px 22px;
+            z-index: -1;
+        }
+
+        /* Glitch effect dots */
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 20%, #0a0a12 20%, #0a0a12 80%, transparent 80%, transparent),
+                        radial-gradient(circle, transparent 20%, #0a0a12 20%, #0a0a12 80%, transparent 80%, transparent) 10px 10px;
+            background-size: 20px 20px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* Game UI Container */
+        .container {
+            background: rgba(10, 10, 20, 0.8);
+            border: 4px solid #4a2c82;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 
+                0 0 20px rgba(74, 44, 130, 0.6),
+                inset 0 0 20px rgba(74, 44, 130, 0.4);
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+            overflow: hidden;
+            animation: glitch-effect 5s infinite alternate;
+        }
+
+        /* Neon border effect */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px solid #8a2be2;
+            border-radius: 10px;
+            animation: border-pulse 3s infinite alternate;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Error code - game font */
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 120px;
+            color: #ff3860;
+            text-shadow: 
+                0 0 10px #ff3860,
+                0 0 20px #ff3860,
+                0 0 30px #ff3860;
+            margin-bottom: 20px;
+            animation: text-flicker 3s infinite alternate;
+            letter-spacing: 5px;
+        }
+
+        /* Error message */
+        p {
+            font-size: 22px;
+            font-weight: 400;
+            color: #e0e0ff;
+            margin-bottom: 40px;
+            text-shadow: 0 0 5px rgba(224, 224, 255, 0.5);
+        }
+
+        /* Game-style button */
+        .button {
+            display: inline-block;
+            width: 250px;
+            height: 60px;
+            background: linear-gradient(135deg, #6e3bce 0%, #4a2c82 100%);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(110, 59, 206, 0.4);
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(110, 59, 206, 0.6);
+        }
+
+        .button:active {
+            transform: translateY(1px);
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .button:hover::before {
+            left: 100%;
+        }
+
+        /* Game UI elements */
+        .health-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .health {
+            height: 100%;
+            width: 30%;
+            background: linear-gradient(90deg, #ff3860, #ff6b6b);
+            border-radius: 5px;
+            animation: health-drain 5s infinite alternate;
+        }
+
+        /* Animations */
+        @keyframes glitch-effect {
+            0%, 100% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-2px, 2px);
+            }
+            40% {
+                transform: translate(-2px, -2px);
+            }
+            60% {
+                transform: translate(2px, 2px);
+            }
+            80% {
+                transform: translate(2px, -2px);
+            }
+        }
+
+        @keyframes border-pulse {
+            0% {
+                box-shadow: 0 0 5px #8a2be2;
+                opacity: 0.7;
+            }
+            100% {
+                box-shadow: 0 0 20px #8a2be2;
+                opacity: 1;
+            }
+        }
+
+        @keyframes text-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 
+                    0 0 10px #ff3860,
+                    0 0 20px #ff3860,
+                    0 0 30px #ff3860;
+            }
+            20%, 24%, 55% {
+                text-shadow: 
+                    0 0 5px #ff3860,
+                    0 0 10px #ff3860,
+                    0 0 15px #ff3860,
+                    0 0 20px #ff1f71,
+                    0 0 35px #ff1f71,
+                    0 0 40px #ff1f71;
+            }
+        }
+
+        @keyframes health-drain {
+            0% {
+                width: 100%;
+                background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            }
+            50% {
+                width: 50%;
+                background: linear-gradient(90deg, #FFC107, #FF9800);
+            }
+            100% {
+                width: 30%;
+                background: linear-gradient(90deg, #ff3860, #ff6b6b);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 80px;
+            }
+            p {
+                font-size: 18px;
+            }
+            .button {
+                width: 200px;
+                height: 50px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 60px;
+            }
+            p {
+                font-size: 16px;
+            }
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>403</h1>
+        <p>ACCESS DENIED: You don't have permission to enter this zone</p>
+        
+        <!-- Game UI elements -->
+        <div class="health-bar">
+            <div class="health"></div>
+        </div>
+        
+        <button class="button" onclick="window.location.href='/'">
+            <i class="fas fa-arrow-left"></i> RETURN TO BASE
+        </button>
+    </div>
+
+    <script>
+        // Add some game-like effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.container');
+            
+            // Create digital rain effect
+            function createDigitalRain() {
+                const chars = "01";
+                const cols = Math.floor(window.innerWidth / 20);
+                
+                for (let i = 0; i < cols; i++) {
+                    const col = document.createElement('div');
+                    col.style.position = 'fixed';
+                    col.style.top = '-50px';
+                    col.style.left = (i * 20) + 'px';
+                    col.style.width = '2px';
+                    col.style.height = Math.random() * 100 + 50 + 'px';
+                    col.style.background = 'linear-gradient(transparent, #4a2c82)';
+                    col.style.opacity = Math.random() * 0.5;
+                    col.style.zIndex = '-1';
+                    col.style.animation = `rain ${Math.random() * 2 + 1}s linear infinite`;
+                    col.style.animationDelay = Math.random() * 5 + 's';
+                    document.body.appendChild(col);
+                }
+            }
+            
+            createDigitalRain();
+            
+            // Add glitch effect on hover
+            container.addEventListener('mouseenter', function() {
+                this.style.animation = 'glitch-effect 0.5s infinite alternate';
+            });
+            
+            container.addEventListener('mouseleave', function() {
+                this.style.animation = 'glitch-effect 5s infinite alternate';
+            });
+        });
+    </script>
+</body>
+</html>
