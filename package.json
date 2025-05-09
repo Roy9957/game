@@ -1,0 +1,10 @@
+{
+  "name": "vercel-python-server",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "python api/index.py"
+  },
+  "dependencies": {
+    "flask": "^2.3.2"
+  }
+}
